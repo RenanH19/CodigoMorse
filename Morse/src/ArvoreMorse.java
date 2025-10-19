@@ -1,6 +1,11 @@
 public class ArvoreMorse {
     private Node raiz; // armazena a raiz da árvore
 
+    //metodo para esvaziar arvore
+    public void esvaziar(){
+        this.raiz = new Node(' ');
+    }
+
     // inicializar raiz da árvore
     public void inicializar() {
         this.raiz = new Node(' ');
@@ -84,8 +89,14 @@ public class ArvoreMorse {
             }
         }
 
-        // quando terminar de caminhar pelo código, insere a letra
-        atual.inserirValor(letra);
+        // quando terminar de caminhar pelo código, insere a letra caso não tenha caractere ocupando aquele nó
+        if (atual.obterValor() == ' '){
+            atual.inserirValor(letra);
+            System.out.println("Caractere " + letra + " (" + codigo + ") inserido!");
+            return;
+        }
+        System.out.println("Há um caractere ocupando esse nó, remova-o para inserir uma nova letra");
+
     }
 
     // buscar caracter na árvore -> arvore.buscar("... --- ...") # saida: SOS
@@ -123,10 +134,19 @@ public class ArvoreMorse {
 
             // se for uma barra, é uma nova palavra
             if (simbolo == '/') {
-                resultado += ' ';
+                // verifica se a letra existe
+                if (atual.obterValor() == ' ' && atual != raiz) {
+                    return "\nErro: letra/numero faltando no sistema\nfrase formada: " + resultado;
+                }
 
-                // reseta o atual
+                // concatena o valor do caracter na posição atual, se não for a raiz
+                if (atual != raiz) {
+                    resultado += atual.obterValor();
+                }
+
+                // reseta o atual para a próxima letra
                 atual = raiz;
+                resultado += ' ';
             }
 
             // caso não exista o nó, termina a execução
@@ -151,7 +171,7 @@ public class ArvoreMorse {
         if (no == null) {
             System.out.println("Letra/numero não encontrada");
         }
-        else {
+        else { // significa que o retorno foi algum nó atual que em nossa recursividade correspondeu a letra desejada
 
             System.out.println("Letra/numero '" + letra + "' removida com sucesso");
         }
@@ -159,6 +179,7 @@ public class ArvoreMorse {
 
     public Node removerLetra(Node atual, Node anterior, char letra) {
 
+        //condição de parada para que não chegue nas linhas de esquerda ou direita e fique chamando o removerLetra
         if (atual == null) {
             return null;
         }
@@ -172,7 +193,7 @@ public class ArvoreMorse {
                 if(anterior.obterEsquerda() == atual) anterior.inserirEsquerda(null);
                 if(anterior.obterDireita() == atual) anterior.inserirDireita(null);
             } else {
-                System.out.println("Nó "+ letra +"possui filhos.\nRemovendo apenas seu valor...");
+                System.out.println("Nó "+ letra +" possui filhos.\nRemovendo apenas seu valor...");
                 atual.inserirValor(' ');
             }
 
@@ -221,7 +242,7 @@ public class ArvoreMorse {
             // criar novo prefixo para próxima impressão
             String novoPrefixo;
             if (esquerda) {
-                novoPrefixo = prefixo + "│      ";
+                novoPrefixo = prefixo + "│      "; //concatenando o prefixo com base nos prefixos anteriores
             } else {
                 novoPrefixo = prefixo + "       ";
             }
@@ -232,7 +253,7 @@ public class ArvoreMorse {
             boolean direita = no.obterDireita() != null;
 
             // chamada recursiva caso existam os nós
-            if(direita) {
+            if(direita) { //se tem nó na direita, o esquerda que vai imprimir o (-)
                 exibirHierarquia(no.obterDireita(), novoPrefixo, esquerda);
             }
 

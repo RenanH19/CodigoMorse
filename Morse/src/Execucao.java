@@ -17,11 +17,12 @@ public class Execucao {
         do {
             System.out.println("---------------------------------------------------------------------");
             System.out.println("MENU DE OPERAÇÕES:");
-            System.out.println("1. Inserção de caractér");
-            System.out.println("2. Descriptografar texto em código morse (busca por caracter)");
-            System.out.println("3. Remoção de caractér");
+            System.out.println("1. Inserção de caractere");
+            System.out.println("2. Descriptografar texto em código morse (busca por caractere)");
+            System.out.println("3. Remoção de caractere");
             System.out.println("4. Exibir árvore binária morse");
-            System.out.println("5. Sair");
+            System.out.println("5. Esvaziar árvore binária morse");
+            System.out.println("6. Sair");
             System.out.println("---------------------------------------------------------------------");
             System.out.print("Selecione a operação: ");
 
@@ -29,16 +30,15 @@ public class Execucao {
             teclado.nextLine(); // limpar buffer
 
             switch (escolha) {
-                case 1: // inserção de caracter
-                    System.out.println("Digite o caractér: ");
+                case 1: // inserção de caractere
+                    System.out.println("Digite o caractere: ");
                     String caracter = teclado.next(); // coletar letra/numero
 
-                    System.out.println("Digite o código morse relacionado a esse caractér:");
+                    System.out.println("Digite o código morse relacionado a esse caractere:");
                     String codigo = teclado.next(); // coletar morse
 
-                    System.out.println("\nInserindo novo caractér...");
+                    System.out.println("\nTentando inserir novo caractere...");
                     arvore.inserirLetra(caracter.charAt(0), codigo); // transformar string da letra em char para o metodo inserirLetra
-                    System.out.println("Caractér " + caracter + " (" + codigo + ") inserido!");
                     break;
 
                 case 2: // buscar palavra/letra
@@ -50,10 +50,10 @@ public class Execucao {
                     break;
 
                 case 3: // remover letra
-                    System.out.println("Digite o caractér que deseja remover: ");
+                    System.out.println("Digite o caractere que deseja remover: ");
                     String caracterRemover = teclado.next(); // coletar caracter
 
-                    System.out.println("\nRemovendo caractér...");
+                    System.out.println("\nRemovendo caractere...");
                     arvore.removerLetra(caracterRemover.charAt(0)); // transformar string da letra em char para o metodo removerLetra
                     break;
 
@@ -65,6 +65,13 @@ public class Execucao {
                     break;
 
                 case 5: // encerrar
+                    System.out.println("\nEsvaziando árvore");
+                    arvore.esvaziar();
+
+                    System.out.println();
+                    break;
+
+                case 6: // encerrar
                     System.out.println("Encerrando programa!");
                     teclado.close();
                     execucao = false;

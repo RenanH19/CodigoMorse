@@ -1,30 +1,35 @@
 public class Node {
-    private char caractere;
-    private Node esquerda;
+    private char valor;
     private Node direita;
+    private Node esquerda;
 
-
-    public Node getDireita() {
-        return direita;
+    public Node (char valor) {
+        this.valor = valor;
+        this.direita = null;
+        this.esquerda = null;
     }
 
-    public void setDireita(Node direita) {
-        this.direita = direita;
+    public void inserirValor(char valor) {
+        this.valor = valor;
     }
 
-    public Node getEsquerda() {
-        return esquerda;
-    }
-
-    public void setEsquerda(Node esquerda) {
+    public void inserirEsquerda(Node esquerda) {
         this.esquerda = esquerda;
     }
 
-    public char getInformacao() {
-        return caractere;
+    public void inserirDireita(Node direita) {
+        this.direita = direita;
     }
 
-    public void setInformacao(char informacao) {
-        this.caractere = caractere;
+    public char obterValor() {
+        return this.valor;
+    }
+
+    public Node obterEsquerda() {
+        return this.esquerda;
+    }
+
+    public Node obterDireita() {
+        return this.direita;
     }
 }
